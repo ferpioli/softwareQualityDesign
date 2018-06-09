@@ -94,7 +94,7 @@ npm run mocha
 ## Executando local
 
 ```sh
-git clone git@bitbucket.org:minutrade/bonuz-business-file-processor.git
+https://github.com/ferpioli/softwareQualityDesign.git
 npm i
-npm start
+npm run dev
 ```
