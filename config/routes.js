@@ -1,18 +1,40 @@
 const express = require('express')
 
-module.exports = function(server){
+module.exports = function (server) {
 
-    //API Routes
+    /*
+    *Rotas abertas
+    */
 
-    const router = express.Router()
-    server.use('/api' , router)
+    const openApi = express.Router()
+    server.use('/oapi', openApi)
 
-   // rotas da API
 
-   const billingCycleService = require('../api/billingCycle/billingCycleService')
-   billingCycleService.register(router, '/billingCycles')
+    const AuthService = require('../api/user/authService')
+    openApi.post('/login', AuthService.login)
+    openApi.post('signup', AuthService.signup)
+    openApi.post('validateToken', AuthService.validateToken)
 
-   const billigCycleSummaryService = require('../api/billingSummary/billingSummaryService')
-   router.route('/billingSummary').get(billigCycleSummaryService.getSummary)
+
+    /*
+    * Rotas protegidas por token JWT
+    */
+
+    const protectedApi = express.Router()
+    server.user('/api', protectedApi)
+
+    protectedApi.use(auth)
+
+
+
+
+
+    // rotas da API
+
+    const billingCycleService = require('../api/billingCycle/billingCycleService')
+    billingCycleService.register(router, '/billingCycles')
+
+    const billigCycleSummaryService = require('../api/billingSummary/billingSummaryService')
+    router.route('/billingSummary').get(billigCycleSummaryService.getSummary)
 
 }
