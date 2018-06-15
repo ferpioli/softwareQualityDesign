@@ -1,4 +1,5 @@
 const express = require('express')
+const auth = require('./auth')
 
 module.exports = function (server) {
 
@@ -12,8 +13,8 @@ module.exports = function (server) {
 
     const AuthService = require('../api/user/authService')
     openApi.post('/login', AuthService.login)
-    openApi.post('signup', AuthService.signup)
-    openApi.post('validateToken', AuthService.validateToken)
+    openApi.post('/signup', AuthService.signup)
+    openApi.post('/validateToken', AuthService.validateToken)
 
 
     /*
@@ -21,7 +22,7 @@ module.exports = function (server) {
     */
 
     const protectedApi = express.Router()
-    server.user('/api', protectedApi)
+    server.use('/api', protectedApi)
 
     protectedApi.use(auth)
 
@@ -32,9 +33,9 @@ module.exports = function (server) {
     // rotas da API
 
     const billingCycleService = require('../api/billingCycle/billingCycleService')
-    billingCycleService.register(router, '/billingCycles')
+    billingCycleService.register(protectedApi, '/billingCycles')
 
     const billigCycleSummaryService = require('../api/billingSummary/billingSummaryService')
-    router.route('/billingSummary').get(billigCycleSummaryService.getSummary)
+    protectedApi.route('/billingSummary').get(billigCycleSummaryService.getSummary)
 
 }

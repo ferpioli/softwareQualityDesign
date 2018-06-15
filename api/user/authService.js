@@ -4,8 +4,11 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('./user')
 const env = require('../../.env')
+
 const emailRegex = /\S+@\S+\.\S+/
 const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,12})/
+
+
 const sendErrorsFromDB = (res, dbErrors) => {
 
     const errors = []
@@ -16,14 +19,11 @@ const sendErrorsFromDB = (res, dbErrors) => {
 }
 
 const login = (req, res, next) => {
-
+    
     const email = req.body.email || ''
-
     const password = req.body.password || ''
 
-
-}
-User.findOne({ email }, (err, user) => {
+User.findOne({email}, (err, user) => {
     if (err) {
         return sendErrorsFromDB(res, err)
     } else if (user && bcrypt.compareSync(password, user.password)) {
@@ -36,7 +36,7 @@ User.findOne({ email }, (err, user) => {
         return res.status(400).send({ errors: ['Usuário/Senha inválidos'] })
     }
 })
-
+}
 const validateToken = (req, res, next) => {
 
     const token = req.body.token || ''
