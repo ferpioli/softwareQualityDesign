@@ -58,7 +58,32 @@ const billingCycleSchema = new mongoose.Schema({
 ```
 /api/billingSummary
 ```
+-Rota POST para cadastrar novo usuario
+```
+/oapi/signup
+```
+body :
+```
+{
+    "name":"nome_do_usuario",
+    "email": "email_do_usuario",
+    "password": "Password_do_usuario",
+    "confirm_password" : "Confirma_password"
+}
+```
 
+- Rotas para obter token
+```
+/oapi/login
+```
+body
+```
+{
+     "email": "email_do_usuario",
+    "password": "Password_do_usuario"
+  }
+```
+O token esta configurado para expirar em 1 dia.
 
 ## Configurações
 
