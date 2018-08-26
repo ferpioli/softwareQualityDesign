@@ -26,13 +26,15 @@ const login = (req, res, next) => {
 User.findOne({email}, (err, user) => {
     if (err) {
         return sendErrorsFromDB(res, err)
+        console.log('entrou aqui1')
     } else if (user && bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign(user, env.authSecret, {
             expiresIn: "1 day"
             //expiresIn: "10 seconds"
-        })
+            })
         const { name, email } = user
         res.json({ name, email, token })
+        
     } else {
         return res.status(400).send({ errors: ['Usuário/Senha inválidos'] })
     }
@@ -97,6 +99,7 @@ const signup = (req, res, next) => {
                     return sendErrorsFromDB(res, err)
                 } else {
                     login(req, res, next)
+                   
                 }
             })
         }
