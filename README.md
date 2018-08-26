@@ -72,7 +72,7 @@ body :
 }
 ```
 
-- Rotas para obter token
+- Rota POST para obter token
 ```
 /oapi/login
 ```
@@ -83,7 +83,7 @@ body
     "password": "Password_do_usuario"
   }
 ```
-O token esta configurado para expirar em 1 dia.
+> O token esta configurado para expirar em 1 dia.
 
 ## Configurações
 
