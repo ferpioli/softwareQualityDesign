@@ -26,7 +26,7 @@ const login = (req, res, next) => {
 User.findOne({email}, (err, user) => {
     if (err) {
         return sendErrorsFromDB(res, err)
-        console.log('entrou aqui1')
+        
     } else if (user && bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign(user, env.authSecret, {
             expiresIn: "1 day"
