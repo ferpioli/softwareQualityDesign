@@ -8,7 +8,8 @@ describe('Service: Finance',() => {
                     password : 'Qa@2018',
                     confirm_password : 'Qa@2018'
                 }
-                beforeEach(done => {
+                
+                before(done => {
                     MongoClient.connect(mongo_uri, (err, db) => {
                         db.collection("users").deleteMany(user, (err, res) => {
                             db.close();
