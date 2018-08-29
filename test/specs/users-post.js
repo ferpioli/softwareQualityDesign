@@ -1,5 +1,4 @@
-
-describe('Service: Finance',() => {
+describe('Service: mymoney',() => {
     describe('POST /oapi/signup', () => {
         describe('status 200', () => {
                 let user = {
@@ -9,9 +8,9 @@ describe('Service: Finance',() => {
                     confirm_password : 'Qa@2018'
                 }
                 
-                before(done => {
+                beforeEach(done => {
                     MongoClient.connect(mongo_uri, (err, db) => {
-                        db.collection("users").deleteMany(user, (err, res) => {
+                        db.collection('users').deleteMany(user, (err, res) => {
                             db.close();
                             done(err);
                         });
